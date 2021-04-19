@@ -21,6 +21,13 @@ public final class Logic {
     }
 
     private boolean free(Cell[] steps) throws OccupiedCellException {
+        for (Cell cell : steps) {
+            try {
+                findBy(cell);
+                throw new OccupiedCellException("Cell " + cell + " is occupied");
+            } catch (FigureNotFoundException e) {
+            }
+        }
         return true;
     }
 
@@ -36,6 +43,6 @@ public final class Logic {
                 return index;
             }
         }
-        throw new FigureNotFoundException();
+        throw new FigureNotFoundException("Figure not found at " + cell);
     }
 }
